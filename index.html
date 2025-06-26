@@ -1,0 +1,110 @@
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Всплывающий попап со степером</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <button id="openModalBtn">Создать распоясовку</button>
+
+    <div id="stepperModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modalTitle">Выбор места проведения</h2>
+            <div class="selection-info">
+                <p>Выбранное место: <span id="selectedVenueInfo">не выбрано</span></p>
+                <p>Выбранная схема: <span id="selectedSchemeInfo">не выбрано</span></p>
+            </div>
+            <div id="step1" class="step active">
+                <div class="filters">
+                    <div class="filters-row">
+                        <div class="filter-group">
+                            <span>Фильтр:</span>
+                            <label class="option"><input type="radio" name="venueType" value="typical"> только типичные места проведения</label>
+                            <label class="option"><input type="radio" name="venueType" value="all" checked> все</label>
+                        </div>
+                    </div>
+                    <div class="filters-row">
+                        <div class="filter-group">
+                            <label>
+                                <span>Место проведения:</span>
+                                <input type="text" id="venueNameFilter" class="form-text" size="25">
+                            </label>
+                        </div>
+                         <div class="filter-group">
+                            <label>
+                                <span>Город:</span>
+                                <input type="text" id="venueCityFilter" class="form-text" size="25">
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+
+                <table id="venuesTable" class="compact row-border stripe">
+                    <thead>
+                        <tr>
+                            <th>Регион</th>
+                            <th>Город</th>
+                            <th>Часовой пояс</th>
+                            <th>Название места проведения</th>
+                            <th>Адрес места проведения</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be injected by JS -->
+                    </tbody>
+                </table>
+                <div id="venuesPagination" class="pagination"></div>
+            </div>
+
+            <div id="step2" class="step">
+                <div class="filters">
+                     <div class="filters-row container-inline">
+                        <div class="filter-group">
+                            <span>Фильтр:</span>
+                            <label class="option">
+                                <input type="radio" name="schemeType" value="cabinet" checked>
+                                <span>персональные схемы зала</span>
+                            </label>
+                            <label class="option">
+                                <input type="radio" name="schemeType" value="all">
+                                <span>все</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <table id="schemesTable" class="compact row-border stripe hover">
+                     <thead>
+                        <tr>
+                            <th>Зал</th>
+                            <th>Название</th>
+                            <th>Всего<br>секторов/мест</th>
+                            <th>Нумерованных<br>секторов/мест</th>
+                            <th>Ненумерованных<br>секторов/мест</th>
+                            <th class="dt-center">Используется в<br>сеансах</th>
+                            <th>Предпросмотр<br>схемы зала</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Rows will be injected by JS -->
+                    </tbody>
+                </table>
+                <div id="schemesPagination" class="pagination"></div>
+            </div>
+                <div class="modal-footer">
+                    <button id="backBtn" class="stepper-btn" style="display: none;">Назад</button>
+                    <button id="nextBtn" class="stepper-btn">Далее</button>
+                </div>
+                <!-- <div class="selection-info">
+                    <p>Выбранное место: <span id="selectedVenueInfo">не выбрано</span></p>
+                    <p>Выбранная схема: <span id="selectedSchemeInfo">не выбрано</span></p>
+                </div> -->
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
