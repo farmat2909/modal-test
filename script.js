@@ -340,7 +340,8 @@ document.addEventListener('DOMContentLoaded', () => {
     backBtn.addEventListener('click', () => {
         if (currentStep > 1) {
             currentStep--;
-            updateStepView();
+            updateStepView()
+            resetState();
         }
     });
 
