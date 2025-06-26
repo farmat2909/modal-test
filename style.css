@@ -25,37 +25,42 @@ body {
 
 /* Modal styles */
 .modal {
-    width: 70%;
-    height: 500px;
-    /* max-height: 100%; */
+    height: 100%;
     display: none; /* Hidden by default */
     position: fixed;
     z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%;
     overflow: auto;
     background-color: rgba(0,0,0,0.5);
     animation: fadeIn 0.3s;
 }
 
 .modal-content {
+    width: 85%;
+    min-height: 500px;
+    max-height: 100%;
+    top: 50%;
     background-color: #fefefe;
-    margin: 5% auto;
-    padding: 25px;
+    margin: auto;
+    left: 0;
+    right: 0;
+    padding: 15px;
     border: 1px solid #ddd;
-    width: 70%;
-    /* min-height: 500px;
-    max-height: 100%; */
-    /* z-index: 1; */
-    /* overflow: auto; */
-    /* max-width: 800px; */
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    position: relative;
+    position: fixed;
     animation: slideIn 0.3s;
+    z-index: 2;
+    overflow: auto;
+    transform: translateY(-50%);
 }
+
+
+
+
+
 
 @keyframes fadeIn {
     from { opacity: 0; }
@@ -69,9 +74,9 @@ body {
 
 /* Filter styles */
 .filters {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     font-size: 13px;
-    padding: 15px;
+    padding: 5px;
     background-color: #f8f9fa;
     border-radius: 5px;
     border: 1px solid #dee2e6;
@@ -148,20 +153,22 @@ body {
 
 h2 {
     font-size: 18px;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
 
 /* Table styles */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
     font-size: 11px;
-    line-height: 15pxs;
+    line-height: 15px;
 }
 
 th, td {
     border: 1px solid #ddd;
-    padding: 12px;
+    padding: 4px;
     text-align: left;
 }
 
@@ -206,7 +213,7 @@ table.hover tbody tr:hover {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 0;
+    padding: 5px 0;
     gap: 5px;
 }
 
@@ -245,9 +252,8 @@ table.hover tbody tr:hover {
 .modal-footer {
     display: flex;
     justify-content: flex-end;
-    padding-top: 10px;
+    padding-top: 5px;
     border-top: 1px solid #eee;
-    margin-top: 5px;
 }
 
 .stepper-btn {
@@ -284,7 +290,7 @@ table.hover tbody tr:hover {
 }
 
 .selection-info {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     padding: 5px;
     background-color: #f8f9fa;;
     border-radius: 5px;
