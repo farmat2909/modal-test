@@ -24,6 +24,10 @@ export function updateStepView() {
         elements.stepperCircle1.innerHTML = '✓';
 
         elements.stepperItem2.classList.add('active');
+
+        const venue = steps[1].selected;
+        elements.selectedVenueTitle.classList.remove('visually-hidden');
+        elements.selectedVenueTitle.textContent = `${venue.name}`;
     }
 
     elements.backBtn.style.display = currentStep === 1 ? 'none' : 'inline-block';
@@ -49,7 +53,7 @@ export function renderTableForStep(stepNum, page = 1) {
         itemIndex++;
 
         if (stepNum === 1) {
-            row.innerHTML = `<td>${item.region}</td><td>${item.city}</td><td>${item.timezone}</td><td><span class="venue-link">${item.name}</span></td><td>${item.address}</td>`;
+            row.innerHTML = `<td>${item.region}</td><td>${item.city}</td><td><span class="venue-link">${item.name}</span></td><td>${item.address}</td>`;
             const venueLink = row.querySelector('.venue-link');
             venueLink.addEventListener('click', (e) => {
                 e.stopPropagation(); // prevent row click from firing twice
@@ -57,6 +61,7 @@ export function renderTableForStep(stepNum, page = 1) {
             });
         } else if (stepNum === 2) {
              row.innerHTML = `
+                <td>${"25/01/2025"}</td>
                 <td>${item.hallName}</td>
                 <td><span>${item.name}</span></td>
                 <td>${item.totalSectors} / ${item.totalSeats}</td>

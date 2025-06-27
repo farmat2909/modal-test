@@ -26,6 +26,7 @@
                     <h4 class="stepper-title">Схема зала</h4>
                 </div>
             </div>
+            <h4 id="selectedVenueTitle" class="venue-title"></h4>
             <div class="selection-info visually-hidden">
                 <p>Выбранное место: <span id="selectedVenueInfo">не выбрано</span></p>
                 <p>Выбранная схема: <span id="selectedSchemeInfo">не выбрано</span></p>
@@ -61,7 +62,6 @@
                         <tr>
                             <th>Регион</th>
                             <th>Город</th>
-                            <th>Часовой пояс</th>
                             <th>Название места проведения</th>
                             <th>Адрес места проведения</th>
                         </tr>
@@ -96,6 +96,7 @@
                     <table id="schemesTable" class="compact row-border stripe hover">
                         <thead>
                             <tr>
+                                <th>Дата создания</th>
                                 <th>Зал</th>
                                 <th>Название</th>
                                 <th>Всего<br>секторов/мест</th>

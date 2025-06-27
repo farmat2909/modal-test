@@ -119,6 +119,8 @@ export function resetState() {
 
     document.getElementById('noSchemesMessage')?.classList.add('visually-hidden');
     document.getElementById('schemesContent')?.classList.remove('visually-hidden');
+    document.getElementById('selectedVenueTitle').textContent = '';
+    document.getElementById('selectedVenueTitle')?.classList.add('visually-hidden');
 
     applyVenueFilters();
     updateStepView();
