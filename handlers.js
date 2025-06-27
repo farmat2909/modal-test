@@ -61,6 +61,7 @@ export function handleBack() {
     if (state.currentStep > 1) {
         setCurrentStep(state.currentStep - 1);
         updateStepView();
+        resetState();
     }
 }
 
