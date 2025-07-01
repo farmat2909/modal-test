@@ -532,6 +532,8 @@ table.hover tbody tr:hover {
 
 #preview {
     position: relative;
+    /* Dimensions are set inline now */
+}
 
 #preview img {
     display: block;
