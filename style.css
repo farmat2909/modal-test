@@ -366,10 +366,10 @@ table.hover tbody tr:hover {
     align-items: center;
     height: 200px;
     font-size: 18px;
-    color: #666;
-    border: 1px solid #ddd;
+    color: #ff0000;
+    /* border: 1px solid #ddd;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: #f9f9f9; */
     margin-top: 20px;
 }
 
@@ -532,8 +532,6 @@ table.hover tbody tr:hover {
 
 #preview {
     position: relative;
-    /* Dimensions are set inline now */
-}
 
 #preview img {
     display: block;

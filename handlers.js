@@ -81,15 +81,18 @@ export function handleNext() {
         updateStepView();
          if (state.currentStep === 2) {
             const noSchemesMsg = document.getElementById('noSchemesMessage');
-            const schemesContent = document.getElementById('schemesContent');
+            const schemesContent = document.getElementById('schemesTable');
+            const schemesPagination = document.getElementById('schemesPagination');
 
             if (state.steps[1].selected?.id === 1) {
                 noSchemesMsg.classList.remove('visually-hidden');
                 schemesContent.classList.add('visually-hidden');
+                schemesPagination.classList.add('visually-hidden');
                 elements.nextBtn.disabled = true;
             } else {
                 noSchemesMsg.classList.add('visually-hidden');
                 schemesContent.classList.remove('visually-hidden');
+                schemesPagination.classList.remove('visually-hidden');
                 applySchemeFilters();
             }
         }
@@ -109,6 +112,7 @@ export function handleBack() {
     if (state.currentStep > 1) {
         setCurrentStep(state.currentStep - 1);
         updateStepView();
+        resetState();
     }
 }
 
