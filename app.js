@@ -3,6 +3,12 @@ import { initializeState } from 'app/state.js';
 import { attachEventListeners } from 'app/events.js';
 import { resetState } from 'app/handlers.js';
 
+let previewedScheme = null;
+export const getPreviewedScheme = () => previewedScheme;
+export const setPreviewedScheme = (scheme) => {
+    previewedScheme = scheme;
+};
+
 document.addEventListener('DOMContentLoaded', () => {
     initializeState();
 

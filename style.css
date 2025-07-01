@@ -40,9 +40,9 @@ body {
 .modal-content {
     width: 70%;
     min-height: 500px;
-    max-height: 100%;
+    max-height: 100vh;
     top: 50%;
-    background-color: #fefefe;
+    background-color: #fff;
     margin: auto;
     left: 0;
     right: 0;
@@ -58,16 +58,19 @@ body {
     flex-direction: column;
 }
 
-.visually-hidden {
-  display: none;
-}
 
-.venue-title {
+
+.venue-title,
+.hall-title {
     margin-top: 0;
     margin-bottom: 10px;
     text-align: center;
     color: #333;
-    /* font-size: 16px; */
+    /* font-size: 20px; */
+}
+
+.hall-title {
+    margin-bottom: 20px;
 }
 
 @keyframes fadeIn {
@@ -112,8 +115,8 @@ body {
     align-items: center;
     font-size: 14px;
     font-weight: bold;
-    color: white;
-    background-color: #ccc;
+    color: rgba(0, 0, 0, 0.45);
+    background-color: rgba(0, 0, 0, 0.06);
     transition: background-color 0.3s ease;
 }
 
@@ -130,6 +133,7 @@ body {
 
 .stepper-item.active .circle {
     background-color: rgb(48, 133, 214); /* Blue */
+    color: #fff;
 }
 
 /* Completed State */
@@ -138,8 +142,9 @@ body {
 }
 
 .stepper-item.completed .circle {
-    background-color: #28a745; /* Green */
+    background-color: #E6F4FF; /* Green */
     font-size: 20px;
+    color: rgb(48, 133, 214);
 }
 
 /* Filter styles */
@@ -286,23 +291,6 @@ table.hover tbody tr:hover {
      background-color: #e2eef7;
 }
 
-.no-schemes-message {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 200px;
-    font-size: 18px;
-    color: #666;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #f9f9f9;
-    margin-top: 20px;
-}
-
-.visually-hidden {
-    display: none !important;
-}
-
 /* span.venue-link {
     color: #0056b3;
     text-decoration: underline;
@@ -320,14 +308,20 @@ table.hover tbody tr:hover {
 }
 
 .pagination button {
-    margin: 0 2px;
-    padding: 8px 12px;
+    box-sizing: border-box;
+    display: inline-block;
+    min-width: 1.5em;
+    padding: .5em 1em;
+    margin-left: 2px;
+    text-align: center;
+    text-decoration: none !important;
     cursor: pointer;
-    border: 1px solid #ddd;
-    background-color: white;
-    border-radius: 4px;
-    transition: background-color 0.2s;
-    font-size: 14px;
+    color: #333 !important;
+    border: 1px solid transparent;
+    border-radius: 2px;
+    font-size: 13px;
+    line-height: 20px;
+
 }
 
 .pagination button:hover:not(:disabled) {
@@ -339,10 +333,16 @@ table.hover tbody tr:hover {
     color: #ccc;
 }
 
+.pagination button:hover {
+    background: rgba(0, 0, 0, 0) linear-gradient(to bottom, #585858 0%, #111111 100%) repeat scroll 0 0;
+    border: none;
+    color: white !important;
+}
+
 .pagination button.active {
-    background-color: #007bff;
-    color: white;
-    border-color: #007bff;
+    border: 1px solid #979797;
+    background: linear-gradient(to bottom, #fff 0, #dcdcdc 100%);
+
 }
 
 .pagination span.ellipsis {
@@ -360,13 +360,28 @@ table.hover tbody tr:hover {
     flex-shrink: 0;
 }
 
+.no-schemes-message {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    font-size: 18px;
+    color: #666;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+}
+
 .stepper-btn {
-    padding: 10px 20px;
+    padding: 0 12px;
     font-size: 13px;
     cursor: pointer;
     border-radius: 3px;
     border: none;
     margin-left: 10px;
+    line-height: 20px;
+    min-height: 28px;
 }
 
 #backBtn {
@@ -385,8 +400,11 @@ table.hover tbody tr:hover {
     background-color: rgb(35, 123, 206);
 }
 #nextBtn:disabled {
-    background-color: #ccc;
+    background-color: #fafafa;
+    color: #999;
+    border: 1px solid rgba(0, 0, 0, .06);
     cursor: not-allowed;
+    box-shadow: none;
 }
 
 .selection-info {
@@ -404,3 +422,157 @@ table.hover tbody tr:hover {
     color: #0056b3;
 }
 
+/* Schema Preview Styles (integrated) */
+.popup-container {
+    margin-top: 20px;
+    background-color: #fefefe;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#schemaPreview .popup-container {
+    border: none;
+    box-shadow: none;
+    padding: 0;
+}
+
+.popup-container h4 {
+    margin-top: 0;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.preview-content {
+    display: flex;
+    gap: 20px;
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+.preview-sectors {
+    flex: 0 0 300px;
+    font-size: 13px;
+    overflow-y: auto;
+}
+
+.preview-sectors p {
+    margin-top: .5em;
+    margin-bottom: .9em;
+}
+
+.preview-schema {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.preview-controls {
+    margin-bottom: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.form-submit {
+    cursor: pointer;
+    margin: 0;
+    overflow: visible;
+    font: inherit;
+    color: #333;
+    text-transform: none;
+    display: inline-block;
+    box-sizing: border-box;
+    padding: 0 12px;
+    background: #f5f5f5;
+    font-size: 13px;
+    line-height: 20px;
+    min-height: 28px;
+    text-decoration: none;
+    text-align: center;
+    border: 1px solid rgba(0, 0, 0, .06);
+    border-radius: 4px;
+    vertical-align: middle;
+}
+.form-submit:hover {
+    background-color: #e0e0e0;
+}
+
+.form-submit.select-schema {
+    background-color: #28a745;
+    color: white;
+    border-color: #28a745;
+    margin-left: auto;
+}
+.form-submit.select-schema:hover {
+     background-color: #218838;
+}
+
+.schema-map-wrapper {
+    border: 1px solid #ccc;
+    overflow: auto;
+    height: 60vh;
+    background-color: #f5f5f5;
+}
+
+.schema-map {
+    position: relative;
+    cursor: grab;
+}
+.schema-map:active {
+    cursor: grabbing;
+}
+
+#preview {
+    position: relative;
+    /* Dimensions are set inline now */
+}
+
+#preview img {
+    display: block;
+}
+
+/* Collapsible fieldset */
+fieldset.collapsible {
+    /* border: 1px solid #ccc; */
+    padding: 10px;
+    border: none;
+}
+fieldset.collapsible legend {
+    display: block;
+    padding: 0;
+    margin: 0;
+}
+fieldset.collapsible legend a {
+    color: #0056b3;
+    text-decoration: none;
+}
+fieldset.collapsible legend a:hover {
+    text-decoration: underline;
+}
+fieldset.collapsible .fieldset-wrapper {
+    max-height: 500px;
+    overflow: hidden;
+    transition: max-height 0.3s ease-in-out;
+}
+fieldset.collapsible.collapsed .fieldset-wrapper {
+    max-height: 0;
+    padding: 0;
+    border: none;
+}
+
+.mtop-20 {
+    margin-top: 0;
+}
+
+
+.visually-hidden {
+  display: none;
+}

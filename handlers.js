@@ -1,6 +1,7 @@
 import { elements } from 'app/dom.js';
-import { state, setCurrentStep, selectItem, deselectItem, setVenueFilters, setSchemeFilters } from 'app/state.js';
-import { updateStepView, renderTableForStep, updateNextButtonState } from 'app/ui.js';
+import { state, setCurrentStep, selectItem, deselectItem, setVenueFilters, setSchemeFilters, setView, ITEMS_PER_PAGE } from 'app/state.js';
+import { updateStepView, renderTableForStep, updateNextButtonState, renderSchemaPreview } from 'app/ui.js';
+import { setPreviewedScheme, getPreviewedScheme } from 'app/app.js';
 
 export function handleRowClick(stepNum, item, rowElement) {
     const step = state.steps[stepNum];
@@ -22,6 +23,47 @@ export function handleRowClick(stepNum, item, rowElement) {
         }
     }
 
+    if (stepNum === 1 && state.steps[1].selected) {
+        const venue = state.steps[1].selected;
+        elements.selectedVenueTitle.textContent = `${venue.name}`;
+        elements.selectedVenueTitle.style.display = 'block';
+    }
+
+    updateNextButtonState();
+}
+
+export function handlePreviewClick(item) {
+    setPreviewedScheme(item);
+    renderSchemaPreview(item);
+    setView('preview');
+    // document.getElementById('scheme-test').classList.add('visually-hidden');
+    // document.getElementById('step-head').classList.add('visually-hidden');
+    updateStepView();
+}
+
+export function handleSelectSchemeFromPreview() {
+    const item = getPreviewedScheme();
+    if (!item) return;
+
+    const stepNum = 2;
+    const step = state.steps[stepNum];
+
+    // Select the item
+    selectItem(stepNum, item);
+    step.infoEl.textContent = `${item.name} (ID: ${item.id})`;
+
+    // Calculate which page the selected item is on
+    const itemIndex = step.filteredData.findIndex(d => d.id === item.id);
+    const page = itemIndex > -1 ? Math.floor(itemIndex / ITEMS_PER_PAGE) + 1 : 1;
+
+    // Switch back to stepper view and update UI
+    setView('stepper');
+    updateStepView();
+
+    // Render the table on the correct page *after* updating the view
+    renderTableForStep(stepNum, page);
+
+    // Update button states
     updateNextButtonState();
 }
 
@@ -37,7 +79,7 @@ export function handleNext() {
     if (state.currentStep < maxSteps) {
         setCurrentStep(state.currentStep + 1);
         updateStepView();
-        if (state.currentStep === 2) {
+         if (state.currentStep === 2) {
             const noSchemesMsg = document.getElementById('noSchemesMessage');
             const schemesContent = document.getElementById('schemesContent');
 
@@ -58,10 +100,15 @@ export function handleNext() {
 }
 
 export function handleBack() {
+    if (state.view === 'preview') {
+        setView('stepper');
+        updateStepView();
+        return;
+    }
+
     if (state.currentStep > 1) {
         setCurrentStep(state.currentStep - 1);
         updateStepView();
-        resetState();
     }
 }
 
@@ -79,6 +126,7 @@ export function applyVenueFilters() {
     if (step.selected && !step.filteredData.find(v => v.id === step.selected.id)) {
         deselectItem(1);
         step.infoEl.textContent = 'не выбрано';
+        elements.selectedVenueTitle.style.display = 'none';
     }
 
     renderTableForStep(1, 1);
@@ -109,6 +157,7 @@ export function resetState() {
         step.infoEl.textContent = 'не выбрано';
     });
 
+    elements.selectedVenueTitle.style.display = 'none';
     setVenueFilters({ name: '', city: '', type: 'all' });
     elements.venueNameFilter.value = '';
     elements.venueCityFilter.value = '';
@@ -116,11 +165,6 @@ export function resetState() {
 
     setSchemeFilters({ type: 'cabinet' });
     document.querySelector('input[name="schemeType"][value="cabinet"]').checked = true;
-
-    document.getElementById('noSchemesMessage')?.classList.add('visually-hidden');
-    document.getElementById('schemesContent')?.classList.remove('visually-hidden');
-    document.getElementById('selectedVenueTitle').textContent = '';
-    document.getElementById('selectedVenueTitle')?.classList.add('visually-hidden');
 
     applyVenueFilters();
     updateStepView();

@@ -4,6 +4,7 @@ export const ITEMS_PER_PAGE = 15;
 
 export let state = {
     currentStep: 1,
+    view: 'stepper', // 'stepper' or 'preview'
     steps: {}
 };
 
@@ -33,11 +34,15 @@ export function initializeState() {
         }
     };
     state.steps[1].filteredData = state.steps[1].data;
-    state.steps[2].filteredData = state.steps[2].data;
+    state.steps[2].filteredData = state.steps[2].data.filter(s => s.isPersonal);
 }
 
 export function setCurrentStep(step) {
     state.currentStep = step;
+}
+
+export function setView(view) {
+    state.view = view;
 }
 
 export function selectItem(stepNum, item) {

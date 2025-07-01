@@ -28,8 +28,10 @@ export const elements = {
     schemesPagination: document.getElementById('schemesPagination'),
     selectedSchemeInfo: document.getElementById('selectedSchemeInfo'),
 
+    // Step 2 Title
+    selectedVenueTitle: document.getElementById('selectedVenueTitle'),
+
     // Footer
     backBtn: document.getElementById('backBtn'),
     nextBtn: document.getElementById('nextBtn'),
-    selectedVenueTitle: document.getElementById('selectedVenueTitle'),
 };

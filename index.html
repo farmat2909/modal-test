@@ -1,12 +1,11 @@
+<!DOCTYPE html>
 <html lang="ru">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Всплывающий попап со степером</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
     <button id="openModalBtn">Создать распоясовку</button>
@@ -14,8 +13,8 @@
     <div id="stepperModal" class="modal">
         <div class="modal-content">
             <span class="close-button">&times;</span>
-            <h2>Выбор места проведения и схемы зала</h2>
-            <div class="stepper-header">
+            <h2 id="step-head">Выбор места проведения и схемы зала</h2>
+            <div id="scheme-test" class="stepper-header">
                 <div class="stepper-item active" id="stepper-item-1">
                     <div class="circle" id="stepper-circle-1">1</div>
                     <h4 class="stepper-title">Место проведения</h4>
@@ -26,7 +25,6 @@
                     <h4 class="stepper-title">Схема зала</h4>
                 </div>
             </div>
-            <h4 id="selectedVenueTitle" class="venue-title"></h4>
             <div class="selection-info visually-hidden">
                 <p>Выбранное место: <span id="selectedVenueInfo">не выбрано</span></p>
                 <p>Выбранная схема: <span id="selectedSchemeInfo">не выбрано</span></p>
@@ -36,8 +34,7 @@
                     <div class="filters-row">
                         <div class="filter-group">
                             <span>Фильтр:</span>
-                            <label class="option"><input type="radio" name="venueType" value="typical"> только типичные
-                                места проведения</label>
+                            <label class="option"><input type="radio" name="venueType" value="typical"> только типичные места проведения</label>
                             <label class="option"><input type="radio" name="venueType" value="all" checked> все</label>
                         </div>
                     </div>
@@ -48,7 +45,7 @@
                                 <input type="text" id="venueNameFilter" class="form-text" size="25">
                             </label>
                         </div>
-                        <div class="filter-group">
+                         <div class="filter-group">
                             <label>
                                 <span>Город:</span>
                                 <input type="text" id="venueCityFilter" class="form-text" size="25">
@@ -74,6 +71,7 @@
             </div>
 
             <div id="step2" class="step">
+                <h3 id="selectedVenueTitle" class="venue-title" style="display: none;"></h3>
                 <div id="noSchemesMessage" class="no-schemes-message visually-hidden">
                     Для выбранного места проведения нет доступных схем зала
                 </div>
@@ -113,12 +111,18 @@
                     <div id="schemesPagination" class="pagination"></div>
                 </div>
             </div>
+
+            <div id="schemaPreview" class="step">
+                 <!-- Preview will be injected by JS -->
+            </div>
+
             <div class="modal-footer">
                 <button id="backBtn" class="stepper-btn" style="display: none;">Назад</button>
                 <button id="nextBtn" class="stepper-btn">Далее</button>
             </div>
         </div>
     </div>
+
     <script type="importmap">
     {
         "imports": {
@@ -128,5 +132,4 @@
     </script>
     <script type="module" src="app.js"></script>
 </body>
-
 </html>
